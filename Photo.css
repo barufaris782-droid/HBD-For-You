@@ -1,8 +1,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body{
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: radial-gradient(circle at top, #ffd3df 0%, #ffb8cc 45%, #ff9fb9 100%);
 }
@@ -18,11 +19,11 @@ body{
 .page{
   position: relative;
   z-index: 1;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   place-items: start center;
   padding: 24px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero{
@@ -219,4 +220,24 @@ body{
 .page{
   position: relative;
   z-index: 1;
+
+}
+
+/* ===== FIX: bottom UI kepotong di GitHub Pages ===== */
+body{
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.page{
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow: visible !important;
+  padding-bottom: 60px;
+}
+
+.scrollbar, .actions{
+  position: relative;
+  z-index: 3;
 }
