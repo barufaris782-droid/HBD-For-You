@@ -1,0 +1,222 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body{
+  height: 100vh;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(circle at top, #ffd3df 0%, #ffb8cc 45%, #ff9fb9 100%);
+}
+
+#fx{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.page{
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: grid;
+  place-items: start center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.hero{
+  width: min(980px, 92vw);
+  text-align: center;
+  margin-top: 10px;
+
+  /* animasi masuk (blok judul + note + button) */
+  animation: enter 900ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes enter{
+  from { opacity: 0; transform: translateY(-18px) scale(.98); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.title{
+  font-family: "Pacifico", cursive;
+  font-size: clamp(38px, 6vw, 64px);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #ff2f7e;
+
+  /* glow + shadow biar pop */
+  text-shadow:
+    0 8px 0 rgba(255,255,255,0.65),
+    0 18px 30px rgba(255, 47, 126, 0.35);
+
+  position: relative;
+  display: inline-block;
+  padding: 6px 14px 10px;
+}
+
+/* “outline” halus */
+.title::before{
+  content: "";
+  position: absolute;
+  inset: 6px 10px 0 10px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.35);
+  filter: blur(8px);
+  z-index: -1;
+}
+
+/* sparkle kecil */
+.title::after{
+  content: " ✨";
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-size: 0.55em;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 10px 24px rgba(255, 47, 126, 0.35);
+}
+
+.note{
+  margin: 14px auto 14px;
+  width: min(720px, 92vw);
+  background: rgba(255, 235, 242, 0.75);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 34px rgba(0,0,0,0.12);
+  backdrop-filter: blur(8px);
+
+  /* animasi kecil biar “hidup” */
+  animation: floaty 3.2s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.note p{
+  font-size: 14px;
+  color: rgba(40, 18, 30, 0.78);
+  line-height: 1.35;
+}
+
+.btn{
+  border: none;
+  cursor: pointer;
+  padding: 12px 22px;
+  border-radius: 999px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  background: linear-gradient(90deg, #7b2cff, #ff2f7e);
+  box-shadow: 0 10px 22px rgba(123, 44, 255, 0.22);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+.btn:active{ transform: translateY(0); }
+
+.btn.small{ padding: 10px 18px; font-size: 13px; margin-top: 6px; }
+
+.btn.ghost{
+  background: rgba(255,255,255,0.55);
+  color: #7b2cff;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+.gallery{
+  width: min(980px, 92vw);
+  margin-top: 18px;
+}
+
+.track{
+  display: flex;
+  gap: 18px;
+  padding: 18px 10px 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* firefox hide */
+}
+.track::-webkit-scrollbar{ display: none; } /* chrome hide */
+
+.card{
+  flex: 0 0 auto;
+  width: 240px;
+  border-radius: 18px;
+  background: rgba(255, 235, 242, 0.68);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.14);
+  padding: 10px;
+  transform: rotate(-2deg);
+  transition: transform 200ms ease, filter 200ms ease;
+}
+.card:nth-child(even){ transform: rotate(2deg); }
+
+.card:hover{
+  transform: rotate(0deg) translateY(-6px) scale(1.02);
+  filter: brightness(1.02);
+}
+
+.card img{
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.card figcaption{
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(40, 18, 30, 0.8);
+  text-align: center;
+  font-weight: 650;
+}
+
+/* slider bar bawah */
+.scrollbar{
+  margin: 10px auto 0;
+  width: min(720px, 92vw);
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+  backdrop-filter: blur(8px);
+}
+
+.scrollbar input[type="range"]{
+  width: 100%;
+  cursor: pointer;
+}
+
+.actions{
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions .btn{
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
+#fx{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page{
+  position: relative;
+  z-index: 1;
+}

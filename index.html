@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Girl</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Canvas untuk balon/confetti -->
+  <canvas id="fx"></canvas>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Happy Birthday<br><span>Sis Leaa!</span></h1>
+      <div class="emoji">🎉 🎂</div>
+      <div class="avatar-wrap">
+      <img class="avatar" src="Sis Lea.jpeg" alt="Sis Lea" />
+      </div>
+
+      <button id="goBtn" class="btn">Click Here! ✨</button>
+    </section>
+  </main>
+
+  <script src="balloons.js"></script>
+  <script>
+   document.getElementById("goBtn").addEventListener("click", () => {
+    window.location.href = "photo.html";
+  });
+    const canvas = document.getElementById("fx");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth * devicePixelRatio;
+  canvas.height = window.innerHeight * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+}
+window.addEventListener("resize", resize);
+resize();
+
+// Partikel balon/confetti
+const colors = ["#ff2f7e", "#7b2cff", "#00c2ff", "#ffcc00", "#37d67a", "#ff6b6b"];
+
+function rand(min, max) { return Math.random() * (max - min) + min; }
+
+class Balloon {
+  constructor() {
+    this.reset(true);
+  }
+  reset(first = false) {
+    this.x = rand(0, window.innerWidth);
+    this.y = first ? rand(-window.innerHeight, window.innerHeight) : rand(-120, -20);
+    this.r = rand(6, 14);
+    this.speed = rand(0.9, 2.4);
+    this.wobble = rand(0.6, 1.6);
+    this.wobbleSeed = rand(0, Math.PI * 2);
+    this.color = colors[Math.floor(rand(0, colors.length))];
+    this.shape = Math.random() < 0.65 ? "balloon" : "confetti";
+    this.rot = rand(0, Math.PI * 2);
+    this.rotSpeed = rand(-0.04, 0.04);
+  }
+
+  drawBalloon() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+
+    // body
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.ellipse(0, 0, this.r * 0.85, this.r * 1.15, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // highlight
+    ctx.globalAlpha = 0.25;
+    ctx.beginPath();
+    ctx.fillStyle = "#fff";
+    ctx.ellipse(-this.r * 0.25, -this.r * 0.2, this.r * 0.18, this.r * 0.45, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // string
+    ctx.strokeStyle = "rgba(120,60,90,0.35)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, this.r * 1.1);
+    ctx.quadraticCurveTo(6, this.r * 2.2, -2, this.r * 3.3);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  drawConfetti() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+
+    ctx.fillStyle = this.color;
+    const w = this.r * 1.2;
+    const h = this.r * 0.6;
+    ctx.fillRect(-w / 2, -h / 2, w, h);
+
+    ctx.restore();
+  }
+
+  update() {
+    // gerak jatuh + sedikit goyang kiri-kanan
+    this.wobbleSeed += 0.02;
+    this.x += Math.sin(this.wobbleSeed) * this.wobble;
+    this.y += this.speed;
+    this.rot += this.rotSpeed;
+
+    if (this.y > window.innerHeight + 80) this.reset(false);
+  }
+
+  render() {
+    if (this.shape === "balloon") this.drawBalloon();
+    else this.drawConfetti();
+  }
+}
+
+// jumlah partikel
+const particles = Array.from({ length: 90 }, () => new Balloon());
+
+function loop() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  for (const p of particles) {
+    p.update();
+    p.render();
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+  </script>
+  
+</body>
+</html>
