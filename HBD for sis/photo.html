@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Memory Lane</title>
+  <link rel="stylesheet" href="Photo.css" />
+</head>
+<body>
+  <canvas id="fx"></canvas>
+
+  <main class="page">
+    <header class="hero">
+      <h1 class="title">Your Memories Lane</h1>
+
+      <div class="note">
+        <p>
+          A journey through the most incredible moments you've started.
+          Hover over each photo to see why these memories mean so much to you, Just a small collection of your fun moments. 
+          Happy birthday wishing you a day full of laughs and good vibes! 🎂✨✨💗
+        </p>
+      </div>
+
+      <button class="btn small" id="startBtn">▶ Start Slideshow</button>
+    </header>
+
+    <section class="gallery">
+      <div class="track" id="track" aria-label="Memory photos">
+        <!-- Ganti src sesuai foto kamu -->
+        <figure class="card">
+          <img src="Lea_1.jpeg" alt="Memory 1" />
+          <figcaption>Memory 1 💕</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="Lea_2.jpeg" alt="Memory 2" />
+          <figcaption>Memory 2 🌙</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="Lea_3.jpeg" alt="Memory 3" />
+          <figcaption>Memory 3 🌆</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="Lea_4.jpeg" alt="Memory 4" />
+          <figcaption>Memory 4 🎸</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="Lea_5.jpeg" alt="Memory 5" />
+          <figcaption>Memory 5 ✨</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="Lea_6.jpeg" alt="Memory 6" />
+          <figcaption>Memory 6 🌈</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="Lea_7.jpeg" alt="Memory 7" />
+          <figcaption>Memory 7 🌟</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="Lea_8.jpeg" alt="Memory 8" />
+          <figcaption>Memory 8 🎀</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="Lea_9.jpeg" alt="Memory 9" />
+          <figcaption>Memory 9 🎈</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="Lea_10.jpeg" alt="Memory 10" />
+          <figcaption>Memory 10 🎉</figcaption>
+        </figure>
+      </div>
+
+      <!-- Slider bar bawah untuk geser kanan-kiri -->
+      <div class="scrollbar">
+        <input id="range" type="range" min="0" max="100" value="0" />
+      </div>
+
+      <div class="actions">
+        <a class="btn ghost" href="index.html">← Back to Welcome</a>
+        <a href="cake.html" class="btn">Next Surprise! ✨</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pakai efek yang sama -->
+  <script src="balloons.js"></script>
+  <script src="Photo.js"></script>
+</body>
+</html>
